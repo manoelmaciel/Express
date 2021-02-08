@@ -28,6 +28,8 @@ router.propfind('/', function(req, res, next) {
 
 // router.view('/', function(req, res, next) {
 //   res.send('Got a VIEW ... Request!');
-// });
+// }); 
+
+// A rota View ... Não é definida!
 
 module.exports = router;

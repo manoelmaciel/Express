@@ -38,4 +38,6 @@ router.link('/', function(req, res, next) {
   res.send('Got a LINK ... Request!')
 });
 
+// Todas as rotas funcionaram no POSTMAN
+
 module.exports = router;
