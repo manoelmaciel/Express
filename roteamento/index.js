@@ -1,21 +1,14 @@
 const express = require('express')
 const app = express()
 
-// respond with "Hello World!" when a GET request is made to the homepage
+// GET method route
 app.get('/', (req, res) => {
-  res.send('Hello ... World!')
+  res.send('GET ... Request to the homepage!')
 })
 
-// app.post('/', (req, res) => {
-//   res.send('Got a POST request')
-// })
-
-// app.put('/user', (req, res) => {
-//   res.send('Got a PUT request at /user')
-// })
-
-// app.delete('/user', (req, res) => {
-//   res.send('Got a DELETE request at /user')
-// })
+// POST method route
+app.post('/', (req, res) => {
+  res.send('POST ... Request to teh homepage!')
+})
 
 app.listen(3000)
