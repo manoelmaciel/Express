@@ -1,14 +1,10 @@
 const express = require('express')
 const app = express()
 
-// GET method route
-app.get('/', (req, res) => {
-  res.send('GET ... Request to the homepage!')
-})
-
-// POST method route
-app.post('/', (req, res) => {
-  res.send('POST ... Request to teh homepage!')
-})
+// will be executed for any request method in /secret
+app.all('/secret', (req, res, next) => {
+  console.log('Accessing the secret section ...');
+  next(); // pass control to the next handler
+});
 
 app.listen(3000)

@@ -1,55 +1,50 @@
-09/02/2021 - 02:08 
+09/02/2021 - 02:37 
 
-Roteamento Básico
+Roteamento
 
-O Roteamento refere-se à determinação de como um aplicativo responde a uma solicitação do cliente por um endpoint específico, que é uma URI (ou caminho) e um método de solicitação HTTP específico (GET, POST, e assim por diante).
+O Roteamento refere-se à definição de terminais do aplicativo (URIs) e como eles respondem às solicitações do cliente. Para obter uma introdução a roteamento, consulte Roteamento básico.
 
-Cada rota pode ter uma ou mais funções de manipulação, que são executadas quando a rota é correspondida.
-
-A definição de rotas aceita a seguinte estrutura:
+O código a seguir é um exemplo de uma rota muito básica.
 
 
-app.METHOD(PATH, HANDLER)
+var express = require('express');
+var app = express();
 
-Onde:
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', function(req, res) {
+  res.send('hello world');
+});
 
-app é uma instância do express.
-METHOD é um método de solicitação HTTP.
-PATH é um caminho no servidor.
-HANDLER é a função executada quando a rota é correspondida.
-Este tutorial assume que uma instância de express chamada app está criada e o servidor está em execução. Caso não tenha familiaridade com a criação e inicialização de um aplicativo, consulte o exemplo Hello world.
+app.listen(3000)
 
-Os seguintes exemplos ilustram a definição de rotas simples.
+Métodos de roteamento
 
-Responder com Hello World! na página inicial:
+Um método de roteamento é derivado a partir de um dos métodos HTTP, e é anexado a uma instância da classe express.
+
+o código a seguir é um exemplo de rotas para a raiz do aplicativo que estão definidas para os métodos GET e POST.
 
 
+// GET method route
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('GET request to the homepage');
 });
 
-Responder a uma solicitação POST na rota raiz (/) com a página inicial do aplicativo:
-
-
+// POST method route
 app.post('/', function (req, res) {
-  res.send('Got a POST request');
+  res.send('POST request to the homepage');
 });
 
-Responder a uma solicitação PUT para a rota /user:
+O Express suporta os seguintes métodos de roteamento que correspondem aos métodos HTTP: get, post, put, head, delete, options, trace, copy, lock, mkcol, move, purge, propfind, proppatch, unlock, report, mkactivity, checkout, merge, m-search, notify, subscribe, unsubscribe, patch, search, e connect.
+
+Para métodos de rota que são traduzidos para nomes de variáveis inválidas no Javascript, use a notação de colchetes. Por exemplo, app['m-search']('/', function ...
+
+Existe um método de roteamento especial, app.all(), que não é derivado de nenhum método HTTP. Este método é usado para carregar funções de middleware em um caminho para todos os métodos de solicitação.
+
+No exemplo a seguir, o manipulador irá ser executado para solicitações para “/secret” se você estiver usando GET, POST, PUT, DELETE, ou qualquer outro método de solicitação HTTP que é suportado no módulo http.
 
 
-app.put('/user', function (req, res) {
-  res.send('Got a PUT request at /user');
+app.all('/secret', function (req, res, next) {
+  console.log('Accessing the secret section ...');
+  next(); // pass control to the next handler
 });
-
-Responder a uma solicitação DELETE para a rota /user:
-
-
-app.delete('/user', function (req, res) {
-  res.send('Got a DELETE request at /user');
-});
-
-Para obter mais detalhes sobre roteamento, consulte o guia de roteamento.
-
-
 
